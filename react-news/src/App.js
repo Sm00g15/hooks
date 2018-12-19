@@ -28,33 +28,50 @@ export default function App() {
     searchInputRef.current.focus();
   };
   return (
-    <>
-      <form action=''>
+    <div className='container max-w-md mx-auto p-4 m-2 bg-purple-lightest shadow-lg rounded'>
+      <img
+        src='https://icon.now.sh/react/c0c'
+        alt='React Logo'
+        className='float-right h-12'
+      />
+      <h1 className='text-grey-darkest font-thin'>Hooks News</h1>
+      <form className='mb-2' action=''>
         <input
           value={query}
           type='text'
           onChange={event => setQuery(event.target.value)}
           ref={searchInputRef}
+          className='border p-1 rounded'
         />
-        <button type='submit' onClick={handleSearch}>
+        <button
+          className='bg-orange rounded m-1 p-1'
+          type='submit'
+          onClick={handleSearch}>
           Search
         </button>
-        <button type='button' onClick={handleClearSearch}>
+        <button
+          className='bg-teal text-white p-1 rounded'
+          type='button'
+          onClick={handleClearSearch}>
           Clear
         </button>
       </form>
       {loading ? (
-        <div>Loading Results...</div>
+        <div className='font-bold text-orange-dark'>Loading Results...</div>
       ) : (
-        <ul>
+        <ul className='list-reset leading-normal'>
           {results.map(result => (
             <li key={result.objectID}>
-              <a href={result.url}>{result.title}</a>
+              <a
+                className='text-indigo-dark hover:text-indigo-darkest'
+                href={result.url}>
+                {result.title}
+              </a>
             </li>
           ))}
         </ul>
       )}
-      {error && <div>{error.message}</div>}
-    </>
+      {error && <div className='text-red font-bold'>{error.message}</div>}
+    </div>
   );
 }
