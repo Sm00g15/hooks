@@ -20,6 +20,12 @@ export default function reducer(state, action) {
         todos: updatedTodos
       };
     case 'ADD_TODO':
+      if (
+        !action.payload ||
+        state.todos.findIndex(t => t.text === action.payload) > -1
+      ) {
+        return state;
+      }
       const newTodo = {
         id: uuidv4(),
         text: action.payload,
@@ -39,7 +45,9 @@ export default function reducer(state, action) {
       return { ...state, todos: toggledTodos };
     case 'REMOVE_TODO':
       const filteredTodos = state.todos.filter(t => t.id !== action.payload.id);
-      return { ...state, todos: filteredTodos };
+      const isRemovedTodo =
+        state.currentTodo.id === action.payload.id ? {} : state.currentTodo;
+      return { ...state, currentTodo: isRemovedTodo, todos: filteredTodos };
     default:
       return state;
   }
