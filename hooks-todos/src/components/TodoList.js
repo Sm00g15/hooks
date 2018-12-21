@@ -6,10 +6,6 @@ export default function TodoList() {
   const title =
     state.todos.length > 0 ? `${state.todos.length} Todos` : 'Nothing To Do';
 
-  const toggleTodo = todo => {
-    console.log('yoooo');
-  };
-
   return (
     <div className='container mx-auto max-w-md text-center font-mono'>
       <h1 className='text-bold'>{title}</h1>
@@ -35,6 +31,7 @@ export default function TodoList() {
             </button>
             <button>
               <img
+                onClick={() => dispatch({ type: 'REMOVE_TODO', payload: todo })}
                 src='https://icon.now.sh/delete/8b0000'
                 alt='Delete Icon'
                 className='h-6'
